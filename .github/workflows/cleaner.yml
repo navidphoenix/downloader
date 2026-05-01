@@ -1,12 +1,7 @@
-name: 🗑 پاک کردن فایلها
+name: Clear Downloads Folder
 
 on:
   workflow_dispatch:
-    inputs:
-      confirm:
-        description: 'برای حذف همه ی فایلهای دانلود شده از گیتهابتون توی کادر پایین yes بنویسید و بزنید پاک بشه'
-        required: true
-        default: 'no'
 
 jobs:
   delete:
@@ -15,12 +10,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Display warning and delete
+      - name: Warning and delete
         run: |
-          echo "WARNING: DELETE ALL FILES inside downloads/ ?"
-          if [ "${{ github.event.inputs.confirm }}" != "yes" ]; then
-            echo "Aborted. Set confirm to 'yes' to delete."
-            exit 1
-          fi
+          echo "⚠️ WARNING: This will delete ALL files inside downloads/ folder."
+          echo "If you want to delete all files, you have already clicked 'Run workflow'."
+          echo "Proceeding with deletion..."
           rm -rf downloads/*
-          echo "All files deleted from downloads/."
+          echo "✅ All files deleted from downloads/."
